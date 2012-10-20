@@ -3,20 +3,23 @@ action :create do
     :name => new_resource.name,
     :server_names => new_resource.server_names,
     :app_root => new_resource.app_root,
-    :enabled => new_resource.enabled
+    :enabled => new_resource.enabled,
+    :gem_home => new_resource.gem_home
   }
 
-  directory new_resource.app_root do
+  directory common[:app_root] do
     owner node[:rails_nginx_unicorn][:deploy_user]
     recursive true
   end
 
-  directory "#{new_resource.app_root}/shared/log" do
-    owner node[:rails_nginx_unicorn][:deploy_user]
-    recursive true
+  %w{log pids}.each do |dir|
+    directory "#{common[:app_root]}/shared/#{dir}" do
+      owner node[:rails_nginx_unicorn][:deploy_user]
+      recursive true
+    end
   end
 
-  template "#{node[:nginx][:dir]}/sites-available/#{new_resource.name}.conf" do
+  template "#{node[:nginx][:dir]}/sites-available/#{common[:name]}.conf" do
     mode 0644
     source "nginx.conf.erb"
     cookbook "rails_nginx_unicorn"
@@ -24,7 +27,14 @@ action :create do
     notifies :reload, "service[nginx]"
   end
 
-  nginx_site "#{new_resource.name}.conf" do
+  template "#{node[:unicorn][:config_path]}/#{common[:name]}.conf.rb" do
+    mode 0644
+    source "unicorn.conf.erb"
+    cookbook "rails_nginx_unicorn"
+    variables common
+  end
+
+  nginx_site "#{common[:name]}.conf" do
     enable common[:enabled]
   end
 end
