@@ -4,17 +4,26 @@ action :create do
     :server_names => new_resource.server_names,
     :app_root => new_resource.app_root,
     :enabled => new_resource.enabled,
-    :gem_home => new_resource.gem_home
+    :user => new_resource.deploy_user,
+    :group => new_resource.deploy_group,
   }
 
   directory common[:app_root] do
-    owner node[:rails_nginx_unicorn][:deploy_user]
+    owner common[:user]
+    group common[:group]
+    recursive true
+  end
+
+  directory "#{common[:app_root]}/shared" do
+    owner common[:user]
+    group common[:group]
     recursive true
   end
 
   %w{log pids}.each do |dir|
     directory "#{common[:app_root]}/shared/#{dir}" do
-      owner node[:rails_nginx_unicorn][:deploy_user]
+      owner common[:user]
+      group common[:group]
       recursive true
     end
   end
