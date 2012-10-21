@@ -36,13 +36,6 @@ action :create do
     notifies :reload, "service[nginx]"
   end
 
-  template "#{node[:unicorn][:config_path]}/#{common[:name]}.conf.rb" do
-    mode 0644
-    source "unicorn.conf.erb"
-    cookbook "rails_nginx_unicorn"
-    variables common
-  end
-
   nginx_site "#{common[:name]}.conf" do
     enable common[:enabled]
   end
