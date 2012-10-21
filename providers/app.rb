@@ -29,7 +29,7 @@ action :create do
     end
   end
 
-  template "#{node[:nginx][:dir]}/sites-available/#{common[:name]}.conf" do
+  template "#{node['nginx']['dir']}/sites-available/#{common[:name]}.conf" do
     mode 0644
     source "nginx.conf.erb"
     cookbook "rails_nginx_unicorn"
@@ -40,6 +40,8 @@ action :create do
   nginx_site "#{common[:name]}.conf" do
     enable common[:enabled]
   end
+
+  new_resource.updated_by_last_action(true)
 end
 
 def load_current_resource
