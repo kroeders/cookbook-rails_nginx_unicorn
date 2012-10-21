@@ -3,7 +3,7 @@ upstream <%= @name %> {
 }
 
 server {
-  listen 80;
+  listen <%= @server_port %>;
   server_name <%= @server_names %>;
 
   root <%= @app_root %>/current/public;

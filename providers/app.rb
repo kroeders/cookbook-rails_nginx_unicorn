@@ -2,6 +2,7 @@ action :create do
   common = {
     :name => new_resource.name,
     :server_names => new_resource.server_names,
+    :server_port => new_resource.server_port,
     :app_root => new_resource.app_root,
     :enabled => new_resource.enabled,
     :user => new_resource.deploy_user,
