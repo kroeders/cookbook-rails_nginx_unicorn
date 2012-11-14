@@ -46,4 +46,11 @@ server {
   location = /400.html {
     root  <%= @app_root %>/current/public;
   }
+
+  <% if @asset_root %>
+  location ^~ <% @asset_root %> {
+    root <% @asset_root %>;
+  }
+  <% end %>
+
 }
