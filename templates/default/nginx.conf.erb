@@ -8,7 +8,7 @@ server {
 
   root <%= @app_root %>/current/public;
 
-  access_log	<%= @app_root %>/shared/log/access.log combined;
+  access_log  <%= @app_root %>/shared/log/access.log combined;
   error_log   <%= @app_root %>/shared/log/error.log;
 
   if (-f $document_root/system/maintenance.html) {
@@ -47,9 +47,9 @@ server {
     root  <%= @app_root %>/current/public;
   }
 
-  <% if @asset_root %>
-  location ^~ <% @asset_root %> {
-    root <% @asset_root %>;
+  <% if @asset_location && @asset_root %>
+  location ^~ <%= @asset_location %> {
+    root <%= @asset_root %>;
   }
   <% end %>
 
