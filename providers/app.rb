@@ -23,12 +23,19 @@ action :create do
     recursive true
   end
 
-  %w{log pids}.each do |dir|
+  %w{log pids config}.each do |dir|
     directory "#{common[:app_root]}/shared/#{dir}" do
       owner common[:user]
       group common[:group]
       recursive true
     end
+  end
+
+  template "#{common[:app_root]}/shared/config/unicorn.rb" do
+    mode 0644
+    source "unicorn-conf.rb.erb"
+    cookbook "rails_nginx_unicorn"
+    variables common
   end
 
   template "#{node['nginx']['dir']}/sites-available/#{common[:name]}.conf" do
