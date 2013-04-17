@@ -42,7 +42,7 @@ action :create do
 
   template "/etc/init.d/#{common[:name]}" do
     mode 0744
-    source "unicorn-init.rb.erb"
+    source "unicorn-init.erb"
     cookbook "rails_nginx_unicorn"
     variables common
   end
