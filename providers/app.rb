@@ -9,6 +9,8 @@ action :create do
     :enabled => new_resource.enabled,
     :user => new_resource.deploy_user,
     :group => new_resource.deploy_group,
+    :rvm_ruby_string => new_resource.rvm_ruby_string,
+    :rails_env => new_resource.rails_env
   }
 
   directory common[:app_root] do
@@ -34,6 +36,13 @@ action :create do
   template "#{common[:app_root]}/shared/config/unicorn.rb" do
     mode 0644
     source "unicorn-conf.rb.erb"
+    cookbook "rails_nginx_unicorn"
+    variables common
+  end
+
+  template "/etc/init.d/#{common[:name]}" do
+    mode 0744
+    source "unicorn-init.rb.erb"
     cookbook "rails_nginx_unicorn"
     variables common
   end

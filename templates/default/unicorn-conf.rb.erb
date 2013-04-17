@@ -1,7 +1,7 @@
 working_directory "<%= @app_root %>/current"
-pid "<%= @app_root %>/current/tmp/pids/unicorn.pid"
-stderr_path "<%= @app_root %>/shared/tmp/pids/unicorn.pid"
-stdout_path "<%= @app_root %>/shared/tmp/pids/unicorn.pid"
+pid "<%= @app_root %>/shared/pids/unicorn.pid"
+stderr_path "<%= @app_root %>/shared/log/unicorn.log"
+stdout_path "<%= @app_root %>/shared/log/unicorn.log"
 
 listen "/tmp/unicorn.<%= @name %>.sock", :backlog => 64
 worker_processes 2
