@@ -40,11 +40,16 @@ action :create do
     variables common
   end
 
-  template "/etc/init.d/#{common[:name]}" do
+ template "/etc/init.d/#{common[:name]}" do
     mode 0744
     source "unicorn-init.erb"
     cookbook "rails_nginx_unicorn"
     variables common
+  end
+
+  service common[:name] do
+    supports :start => true, :stop => true, :restart => true
+    action :enable
   end
 
   template "#{node['nginx']['dir']}/sites-available/#{common[:name]}.conf" do
