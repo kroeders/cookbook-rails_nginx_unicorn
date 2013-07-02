@@ -13,3 +13,6 @@ attribute :deploy_user, :kind_of => String, :default => 'deploy'
 attribute :deploy_group, :kind_of => String, :default => 'deploy'
 attribute :rvm_ruby_string, :kind_of => String, :default => 'ruby-1.9.3-p194-perf'
 attribute :rails_env, :kind_of => String, :default => 'production'
+attribute :ssl_on, :default => false
+attribute :ssl_certificate_path, :kind_of => String, :default => '/usr/local/nginx/conf/cert.pem'
+attribute :ssl_certificate_key_path, :kind_of => String, :default => '/usr/local/nginx/conf/cert.key'

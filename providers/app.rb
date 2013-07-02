@@ -10,7 +10,10 @@ action :create do
     :user => new_resource.deploy_user,
     :group => new_resource.deploy_group,
     :rvm_ruby_string => new_resource.rvm_ruby_string,
-    :rails_env => new_resource.rails_env
+    :rails_env => new_resource.rails_env,
+    :ssl_on => new_resource.ssl_on,
+    :ssl_certificate_path => new_resource.ssl_certificate_path,
+    :ssl_certificate_key_path => new_resource.ssl_certificate_key_path
   }
 
   directory common[:app_root] do
