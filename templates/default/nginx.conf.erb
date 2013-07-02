@@ -9,9 +9,9 @@ server {
   root <%= @app_root %>/current/public;
 
   <% if @ssl_on %>
-    ssl                  on;
-    ssl_certificate      <%= @ssl_certificate_path %>;
-    ssl_certificate_key  <%= @ssl_certificate_key_path %>;
+  ssl                  on;
+  ssl_certificate      <%= @ssl_certificate_path %>;
+  ssl_certificate_key  <%= @ssl_certificate_key_path %>;
   <% end %>
 
   access_log  <%= @app_root %>/shared/log/access.log combined;
