@@ -46,6 +46,12 @@ server {
   error_page  500 502 503 504 /500.html;
   error_page  404 /404.html;
 
+  <% if @ssl %>
+    # This allows HTTP requests to be handled on
+    # an HTTPS port.
+    error_page 497 =200 $request_uri;
+  <% end %>
+
   location = /500.html {
     root  <%= @app_root %>/current/public;
   }
