@@ -4,8 +4,8 @@ default_action :create
 
 attribute :name, :kind_of => String, :name_attribute => true
 attribute :server_names, :kind_of => String, :default => "localhost"
-attribute :http_port, :kind_of => Integer, :default => 80
-attribute :https_port, :kind_of => Integer, :default => 443
+attribute :http_port, :kind_of => Integer
+attribute :https_port, :kind_of => Integer
 attribute :app_root, :kind_of => String, :required => true
 attribute :asset_location, :kind_of => String, :required => false
 attribute :asset_root, :kind_of => String, :required => false
