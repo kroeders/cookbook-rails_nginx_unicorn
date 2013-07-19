@@ -2,6 +2,8 @@ upstream <%= @name %> {
   server unix:/tmp/unicorn.<%= @name %>.sock fail_timeout=0;
 }
 
+<% if @http_port %>
+
 server {
   listen <%= @http_port %>;
   server_name <%= @server_names %>;
@@ -56,8 +58,9 @@ server {
 
 }
 
+<% end %>
 
-<% if @ssl %>
+<% if @https_port %>
 
 server {
   listen <%= @https_port %>;
