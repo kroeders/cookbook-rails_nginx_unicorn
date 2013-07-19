@@ -2,7 +2,8 @@ action :create do
   common = {
     :name => new_resource.name,
     :server_names => new_resource.server_names,
-    :server_port => new_resource.server_port,
+    :http_port => new_resource.http_port,
+    :https_port => new_resource.https_port,
     :app_root => new_resource.app_root,
     :asset_location => new_resource.asset_location,
     :asset_root => new_resource.asset_root,
