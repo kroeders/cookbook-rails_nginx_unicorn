@@ -14,7 +14,7 @@ set -e
 TIMEOUT=${TIMEOUT-60}
 APP_ROOT="<%= @app_root %>/current"
 PID="<%= @app_root %>/shared/pids/unicorn.pid"
-CMD="cd <%= @app_root %>/current; <%= "rvm #{@rvm_ruby_string} do" if @rvm_ruby_string %> bundle exec unicorn -D -c <%= @app_root %>/shared/config/unicorn.rb -E <%= @rails_env %>"
+CMD="cd <%= @app_root %>/current; <% if @rvm %><%= "rvm #{@rvm_ruby_string} do" %><% end %> bundle exec unicorn -D -c <%= @app_root %>/shared/config/unicorn.rb -E <%= @rails_env %>"
 AS_USER=<%= @user %>
 set -u
 

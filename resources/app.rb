@@ -12,6 +12,7 @@ attribute :asset_root, :kind_of => String, :required => false
 attribute :enabled, :default => true
 attribute :deploy_user, :kind_of => String, :default => 'deploy'
 attribute :deploy_group, :kind_of => String, :default => 'deploy'
+attribute :rvm, :default => true
 attribute :rvm_ruby_string, :kind_of => String, :default => 'ruby-1.9.3-p194-perf'
 attribute :rails_env, :kind_of => String, :default => 'production'
 attribute :ssl, :default => false

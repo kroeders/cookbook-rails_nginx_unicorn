@@ -10,6 +10,7 @@ action :create do
     :enabled => new_resource.enabled,
     :user => new_resource.deploy_user,
     :group => new_resource.deploy_group,
+    :rvm => new_resource.rvm,
     :rvm_ruby_string => new_resource.rvm_ruby_string,
     :rails_env => new_resource.rails_env,
     :ssl => new_resource.ssl,
