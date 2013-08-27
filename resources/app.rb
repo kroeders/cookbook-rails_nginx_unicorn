@@ -12,7 +12,7 @@ attribute :asset_root, :kind_of => String, :required => false
 attribute :enabled, :default => true
 attribute :deploy_user, :kind_of => String, :default => 'deploy'
 attribute :deploy_group, :kind_of => String, :default => 'deploy'
-attribute :rvm_ruby_string, :kind_of => String, :default => 'ruby-1.9.3-p194-perf'
+attribute :rvm_ruby_string, :kind_of => String
 attribute :rails_env, :kind_of => String, :default => 'production'
 attribute :ssl, :default => false
 attribute :ssl_certificate_path, :kind_of => String, :default => '/usr/local/nginx/conf/cert.pem'
