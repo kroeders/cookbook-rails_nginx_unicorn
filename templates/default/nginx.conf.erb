@@ -9,7 +9,7 @@ server {
   server_name <%= @server_names %>;
 
   <% if @force_ssl %>
-    rewrite ^ https://$server_name$request_uri? permanent;
+    return 301 https://$host$request_uri;
   <% else %>
     root <%= @app_root %>/current/public;
 
