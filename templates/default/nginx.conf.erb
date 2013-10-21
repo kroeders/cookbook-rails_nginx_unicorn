@@ -8,54 +8,58 @@ server {
   listen <%= @http_port %>;
   server_name <%= @server_names %>;
 
-  root <%= @app_root %>/current/public;
+  <% if @force_ssl %>
+    return 301 https://$host$request_uri;
+  <% else %>
+    root <%= @app_root %>/current/public;
 
-  access_log  <%= @app_root %>/shared/log/access.log combined;
-  error_log   <%= @app_root %>/shared/log/error.log;
+    access_log  <%= @app_root %>/shared/log/access.log combined;
+    error_log   <%= @app_root %>/shared/log/error.log;
 
-  if (-f $document_root/system/maintenance.html) {
-    return 503;
-  }
-
-  error_page 503 @maintenance;
-  location @maintenance {
-    rewrite  ^(.*)$  /system/maintenance.html last;
-    break;
-  }
-
-  location / {
-    proxy_set_header  X-Forwarded-Proto $scheme;
-    proxy_set_header  X-Real-IP  $remote_addr;
-    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header  Host $http_host;
-    proxy_redirect off;
-    if (-f $request_filename) {
-       break;
+    if (-f $document_root/system/maintenance.html) {
+      return 503;
     }
 
-     if (!-f $request_filename) {
-       proxy_pass http://<%= @name %>;
-       break;
+    error_page 503 @maintenance;
+    location @maintenance {
+      rewrite  ^(.*)$  /system/maintenance.html last;
+      break;
+    }
+
+
+    location / {
+      proxy_set_header  X-Forwarded-Proto $scheme;
+      proxy_set_header  X-Real-IP  $remote_addr;
+      proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header  Host $http_host;
+      proxy_redirect off;
+      if (-f $request_filename) {
+         break;
+      }
+
+       if (!-f $request_filename) {
+         proxy_pass http://<%= @name %>;
+         break;
+       }
      }
-   }
 
-  error_page  500 502 503 504 /500.html;
-  error_page  404 /404.html;
+    error_page  500 502 503 504 /500.html;
+    error_page  404 /404.html;
 
-  location = /500.html {
-    root  <%= @app_root %>/current/public;
-  }
+    location = /500.html {
+      root  <%= @app_root %>/current/public;
+    }
 
-  location = /400.html {
-    root  <%= @app_root %>/current/public;
-  }
+    location = /400.html {
+      root  <%= @app_root %>/current/public;
+    }
 
-  <% if @asset_location && @asset_root %>
-  location ^~ <%= @asset_location %> {
-    root <%= @asset_root %>;
-  }
+    <% if @asset_location && @asset_root %>
+    location ^~ <%= @asset_location %> {
+      root <%= @asset_root %>;
+    }
+    <% end %>
   <% end %>
-
 }
 
 <% end %>
