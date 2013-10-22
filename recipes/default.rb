@@ -1,5 +1,2 @@
-if node['nginx']['source']
-  include_recipe 'nginx::source'
-else
-  include_recipe 'nginx'
-end
+recipe = node['nginx']['install_recipe'] || 'nginx'
+include_recipe recipe
