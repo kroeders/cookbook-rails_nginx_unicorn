@@ -16,7 +16,7 @@ action :create do
     :ssl => new_resource.ssl,
     :ssl_certificate_path => new_resource.ssl_certificate_path,
     :ssl_certificate_key_path => new_resource.ssl_certificate_key_path,
-    :include_forwarding_headers => new_resource.include_forwarding_headers
+    :include_forwarding_headers => new_resource.include_forwarding_headers,
   }
 
   directory common[:app_root] do
