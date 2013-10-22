@@ -28,13 +28,15 @@ server {
 
 
     location / {
-      <% unless @ignore_forwarded_proto_header %>
+      <% if @include_forwarding_headers %>
         proxy_set_header  X-Forwarded-Proto $scheme;
+        proxy_set_header  X-Real-IP  $remote_addr;
+        proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header  Host $http_host;
       <% end %>
-      proxy_set_header  X-Real-IP  $remote_addr;
-      proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header  Host $http_host;
+
       proxy_redirect off;
+
       if (-f $request_filename) {
          break;
       }

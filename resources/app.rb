@@ -19,4 +19,4 @@ attribute :ssl, :default => false
 attribute :ssl_certificate_path, :kind_of => String, :default => '/usr/local/nginx/conf/cert.pem'
 attribute :ssl_certificate_key_path, :kind_of => String, :default => '/usr/local/nginx/conf/cert.key'
 attribute :ssl_certificate_key_path, :kind_of => String, :default => '/usr/local/nginx/conf/cert.key'
-attribute :ignore_forwarded_proto_header, :default => false
+attribute :include_forwarding_headers, :default => true
