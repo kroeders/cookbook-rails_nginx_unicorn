@@ -19,23 +19,29 @@ action :create do
     :include_forwarding_headers => new_resource.include_forwarding_headers,
   }
 
-  directory common[:app_root] do
+  app_root = common[:app_root]
+  shared = "#{app_root}/shared"
+
+  directory app_root do
     owner common[:user]
     group common[:group]
     recursive true
+    not_if { File.symlink?(app_root) }
   end
 
-  directory "#{common[:app_root]}/shared" do
+  directory shared do
     owner common[:user]
     group common[:group]
     recursive true
+    not_if { File.symlink?(shared) }
   end
 
   %w{log pids config}.each do |dir|
-    directory "#{common[:app_root]}/shared/#{dir}" do
+    directory "#{shared}/#{dir}" do
       owner common[:user]
       group common[:group]
       recursive true
+      not_if { File.symlink?("#{shared}/#{dir}") }
     end
   end
 
