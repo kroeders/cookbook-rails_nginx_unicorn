@@ -26,14 +26,14 @@ action :create do
     owner common[:user]
     group common[:group]
     recursive true
-    not_if { ::File.symlink?(app_root) }
+    not_if { ::File.exists?(app_root) }
   end
 
   directory shared do
     owner common[:user]
     group common[:group]
     recursive true
-    not_if { ::File.symlink?(shared) }
+    not_if { ::File.exists?(shared) }
   end
 
   %w{log pids config}.each do |dir|
@@ -41,7 +41,7 @@ action :create do
       owner common[:user]
       group common[:group]
       recursive true
-      not_if { ::File.symlink?("#{shared}/#{dir}") }
+      not_if { ::File.exists?("#{shared}/#{dir}") }
     end
   end
 
