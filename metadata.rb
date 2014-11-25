@@ -1,4 +1,4 @@
-nanme            "rails_nginx_unicorn"
+name            "rails_nginx_unicorn"
 maintainer       "Substantial"
 maintainer_email "aaron@substantial.com"
 license          "MIT"
