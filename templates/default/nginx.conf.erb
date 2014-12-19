@@ -10,8 +10,8 @@ server {
 
   <% if @force_ssl_proto %>
     if ($http_x_forwarded_proto != "https") {
-       rewrite ^ https://$server_name$request_uri? last;
-       return 301;
+       rewrite ^ https://$server_name$request_uri? permanent;
+       return 301; #http://wiki.nginx.org/IfIsEvil
     }
   <% end -%>
 
