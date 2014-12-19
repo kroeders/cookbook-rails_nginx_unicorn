@@ -8,6 +8,14 @@ server {
   listen <%= @http_port %>;
   server_name <%= @server_names %>;
 
+  <% if @force_ssl_proto %>
+    if ($http_x_forwarded_proto != "https") {
+       rewrite ^ https://$server_name$request_uri? permanent;
+       return 301; #http://wiki.nginx.org/IfIsEvil
+    }
+  <% end -%>
+
+
   <% if @force_ssl %>
     return 301 https://$host$request_uri;
   <% else %>
